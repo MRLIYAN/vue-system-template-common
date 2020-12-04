@@ -1,0 +1,8 @@
+{
+    "code":"200",
+    "result":{
+        "user":{
+            "token":"admin"
+        }
+    }
+}
