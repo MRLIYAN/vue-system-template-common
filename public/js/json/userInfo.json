@@ -23,8 +23,7 @@
                         "meta":{
                             "title":"主页",
                             "breadCrumb":"true",
-                            "hidden":"false",
-                            "icon":"el-icon-menu"
+                            "icon":"el-icon-s-home"
                         }
                     }
                 ]
@@ -34,8 +33,10 @@
                 "path":"/menuOne",
                 "component":"layout",
                 "name":"menuOne",
+                "redirect":"/menuOne/menuOneone",
                 "meta":{
                     "title":"菜单1",
+                    "isChild":"true",
                     "breadCrumb":"true",
                     "breadCrumbClick":"false",
                     "hidden":"false",
@@ -56,10 +57,11 @@
                         "path":"/menuOne/menuOnetwo",
                         "component":"views/menuOne/menuOnetwo",
                         "name":"menuOnetwo",
+                        "redirect":"/menuOne/menuOnetwo/menuOneTwoone",
                         "meta":{
                             "title":"菜单1-2",
+                            "isChild":"true",
                             "breadCrumb":"true",
-                            "breadCrumbClick":"false",
                             "hidden":"false"
                         },
                         "children":[
@@ -69,6 +71,16 @@
                                 "name":"menuOneTwoone",
                                 "meta":{
                                     "title":"菜单1-2-1",
+                                    "breadCrumb":"true",
+                                    "hidden":"false"
+                                }
+                            },
+                            {
+                                "path":"/menuOne/menuOnetwo/menuOneTwotwo",
+                                "component":"views/menuOne/menuOnetwo/menuOneTwotwo",
+                                "name":"menuOneTwotwo",
+                                "meta":{
+                                    "title":"菜单1-2-2",
                                     "breadCrumb":"true",
                                     "hidden":"false"
                                 }
@@ -93,6 +105,7 @@
                 "component":"layout",
                 "redirect":"/menuTwo/index",
                 "meta":{
+                    "isChild":"false",
                     "hidden":"false"
                 },
                 "children":[{
@@ -110,10 +123,13 @@
             {
                 "path":"/menuThree",
                 "component":"layout",
+                "redirect":"/menuThree/menuThreeOne",
                 "meta":{
                     "title":"菜单3",
+                    "isChild":"true",
                     "breadCrumb":"true",
                     "hidden":"false",
+                    "breadCrumbClick":"false",
                     "icon":"el-icon-s-tools"
                 },
                 "children":[{
