@@ -1,12 +1,12 @@
 <template>
    <div>
-       这是菜单1
+       <router-view></router-view>
    </div>
 </template>
 
 <script>
 export default {
-   name:"menuOne"
+   name:"table"
 }
 </script>
 

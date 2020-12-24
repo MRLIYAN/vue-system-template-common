@@ -1,12 +1,12 @@
 <template>
    <div>
-       这是菜单1
+       基础表格
    </div>
 </template>
 
 <script>
 export default {
-   name:"menuOne"
+   name:"tableIndex"
 }
 </script>
 
