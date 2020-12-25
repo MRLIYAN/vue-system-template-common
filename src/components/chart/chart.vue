@@ -1,5 +1,5 @@
 <template>
-    <div :id="id" class="charts-container" style="width:100%;height:100%;"></div>
+    <div ref="chartContainer" class="charts-container" style="width:100%;height:100%;"></div>
 </template>
 
 <script>
@@ -12,10 +12,6 @@ export default {
         }
     },
     props: {
-        id:{
-            type:String,
-            require:true
-        },
         option:{
             type:Object,
             require:true
@@ -24,11 +20,11 @@ export default {
     mounted() {
         this.initChart();
     },
+    activated() {
+        //此句必须加，因为页面开启了keep-alive缓存，如果不加，resize时，其他页面的echarts不会执行resize，图表出问题。
+        this.chartResize();
+    },
     beforeDestroy() {
-        let that = this;
-        window.removeEventListener("resize",function(){
-            that.myChart.resize();
-        })
         if (!this.myChart) {
             return
         }
@@ -40,21 +36,29 @@ export default {
         '$store.state.app.slideMenu'() {
             //延时效果必须加，因为菜单收缩有个动画时间，否则不起作用
             setTimeout(() => {
-                this.myChart.resize();
+                this.chartResize();
             },300)
         }
     },
     methods: {
         initChart() {
-            this.myChart = echarts.init(document.getElementById(this.id));
-            this.myChart.clear();
-            let option = this.option;
-            this.myChart.setOption(option);
-            let that = this;
-            window.addEventListener("resize",function(){
-                that.myChart.resize();
+            this.$nextTick(() => {
+                this.myChart = echarts.init(this.$refs.chartContainer);
+                this.myChart.clear();
+                this.myChart.setOption(this.option);
+                let that = this;
+                window.addEventListener("resize",function(){
+                    if(that.myChart){
+                        that.myChart.resize();
+                    }
+                })
             })
-        }
+        },
+        chartResize(){
+            if(this.myChart){
+                this.myChart.resize();
+            }
+        },
     }
 }
 </script>
