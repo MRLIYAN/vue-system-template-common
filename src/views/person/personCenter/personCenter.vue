@@ -42,43 +42,12 @@
       </div> 
       <div class="tabs">
           <el-tabs value="first">
-            <el-tab-pane label="基本信息" name="first">
-               <div class="action">
-                  <el-button type="primary" size="small" @click="addRows">新建用户</el-button>
-                  <el-button type="danger"  size="small" @click="romoveAll">删除所选</el-button>
-               </div>
-               <el-table border :data="userInfoList.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-                style="width: 100%"
-                @selection-change="handleSelectionChange"
-                :default-sort = "{prop: 'id', order: 'ascending'}" max-height="631">
-                  <el-table-column type="selection" width="55" align="center"></el-table-column>
-                  <el-table-column prop="id" label="序号" width="80" sortable align="center"></el-table-column>
-                  <el-table-column prop="name" label="姓名" width="180" align="center"></el-table-column>
-                  <el-table-column prop="role" label="角色" width="180" align="center"></el-table-column>
-                  <el-table-column prop="email" label="邮箱" align="center"></el-table-column>
-                  <el-table-column prop="createtime" label="创建时间" sortable align="center"></el-table-column>
-                  <el-table-column prop="state" label="状态" width="80" align="center"> 
-                     <template slot-scope="scope">
-                        <el-tag
-                           :type="scope.row.state ? 'success' : 'danger'"
-                           disable-transitions>{{scope.row.state ? "正常" : "异常"}}</el-tag>
-                     </template>
-                  </el-table-column>
-                  <el-table-column align="center">
-                     <template slot="header">
-                        <el-input
-                           v-model="search"
-                           size="mini"
-                           placeholder="输入关键字搜索"/>
-                     </template>
-                     <template slot-scope="scope">
-                        <el-button @click="editRows(scope.row)" type="text" size="small">编辑</el-button>
-                        <el-button type="text" size="small" @click="romoveRows(scope.row.id)">移除</el-button>
-                     </template>
-                  </el-table-column>
-               </el-table>
+            <el-tab-pane label="用户管理" name="first">
+               <tab-usermanage :userInfoList="userInfoList"></tab-usermanage>
             </el-tab-pane>
-            <el-tab-pane label="绑定账号" name="second">绑定账号</el-tab-pane>
+            <el-tab-pane label="绑定账号" name="second">
+               <tab-accountbind></tab-accountbind>
+            </el-tab-pane>
          </el-tabs>
       </div>    
     
@@ -87,7 +56,10 @@
 </template>
 
 <script>
-export default {
+import TabAccountbind from './subcomponent/tab-accountbind.vue';
+import tabUsermanage from "./subcomponent/tab-usermanage.vue"
+
+export default{
    name:"personCenter",
    data() {
       return {
@@ -107,11 +79,10 @@ export default {
             {id:10,name:"zhoulei",role:"admin",email:"123456789@qq.com",createtime:"2020-12-20 12:22:22",state:0},
 
          ],
-         search:''  
+
       }
    },
    created(){
-      console.log(this.$store.state.user)
    },
    methods: {
       handleClose(tag) {
@@ -133,26 +104,10 @@ export default {
         this.inputVisible = false;
         this.inputValue = '';
       },
-      handleSelectionChange(val){
-         console.log(val)
-      },
-      editRows(row){
-         console.log(row)
-      },
-      addRows(){
-
-      },
-      romoveRows(id){
-          this.userInfoList.some((item,i) => {
-            if(item.id === id)
-               this.userInfoList.splice(i,1)
-          })
-      },
-      romoveAll(){
-
-      }
+     
       
    },
+   components: { tabUsermanage, TabAccountbind },
 }
 </script>
 
@@ -169,6 +124,9 @@ export default {
                font-weight: bold;
                margin: 15px;
             }
+            .jitang{
+               line-height: 30px;
+            }
          }
          .userinfo{
 
@@ -178,7 +136,10 @@ export default {
                margin-top: 18px;
                line-height: 20px;
                margin-left: 50px;
-               font-size: 14px;   
+               font-size: 16px; 
+               i{
+                  margin-right: 10px;
+               }  
             }
          }
       }
@@ -188,11 +149,7 @@ export default {
       }
       .tabs{
          width: 70%;
-         margin: 20px;
-         .action{
-            text-align: left;
-            margin-bottom: 15px;
-         }
+         margin: 20px; 
       }
 
    }
