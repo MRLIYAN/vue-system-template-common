@@ -3,7 +3,7 @@ export default {
      *@type:String 
      *@description 系统默认名字，浏览器标题
     */
-    title:"vue-system-template",
+    title:"vue-system-template-common",
 
     /**
      *@type:Boolean 
