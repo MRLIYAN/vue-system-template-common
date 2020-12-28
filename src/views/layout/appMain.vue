@@ -23,12 +23,15 @@ export default {
         getAliveRoute(){
             let aliveRoutes = [];
             this.$store.state.tagsLink.tagsVisitedRoute.forEach(item => {
-                if(item?.meta?.keepAlive != 'false'){
+                if(!item?.meta?.keepAlive || item.meta.keepAlive != 'false'){
                     if(!aliveRoutes.includes(item.name)){
                         aliveRoutes.push(item.name);
                     }
                     //下面循环matched，解决多级路由缓存失效问题，把路由所有父级路由也加上，从而实现多级路由可以缓存的效果
                     let route = item.matched;
+                    if(!route){
+                        return false;
+                    }
                     route.forEach(item => {
                         if(item.name && !aliveRoutes.includes(item.name)){
                             aliveRoutes.push(item.name);
