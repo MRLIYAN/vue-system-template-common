@@ -126,6 +126,8 @@ export default{
             }
             .jitang{
                line-height: 30px;
+               text-indent: 2em;
+               text-align: left;
             }
          }
          .userinfo{
@@ -135,7 +137,7 @@ export default{
             p{
                margin-top: 18px;
                line-height: 20px;
-               margin-left: 50px;
+               margin-left: 25px;
                font-size: 16px; 
                i{
                   margin-right: 10px;
