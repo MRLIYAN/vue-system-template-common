@@ -117,7 +117,6 @@ export default{
       justify-content: space-between;
       .card{
          width: 29%;
-         margin: 20px;
          .username{
             .user{
                font-size: 24px;
@@ -151,7 +150,6 @@ export default{
       }
       .tabs{
          width: 70%;
-         margin: 20px; 
       }
 
    }
